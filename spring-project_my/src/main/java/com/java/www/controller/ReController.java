@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.java.www.dto.Cps_commentDto;
 import com.java.www.dto.Cps_reviewDto;
 import com.java.www.service.ReviewService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -23,6 +27,7 @@ import com.java.www.service.ReviewService;
 public class ReController {
 	
 	@Autowired ReviewService reviewService;
+	@Autowired HttpSession session;
 	
 	//캠핑리뷰 - 리스트(캠핑장)    전체글검색
 	@GetMapping("re_search")
@@ -48,7 +53,7 @@ public class ReController {
 	//캠핑리뷰 - 리스트(캠핑장)    게시글 1개 가져오기
 	@GetMapping("review_site")
 	public String review_site(@RequestParam(defaultValue = "1")int cps_bno, Model model) {
-		System.out.println("ReviewService review_site cps_bno : "+cps_bno);
+		System.out.println("ReController review_site cps_bno : "+cps_bno);
 		Map<String, Object> map = reviewService.Cps_selectOne(cps_bno);
 		model.addAttribute("map",map);
 		return "/review/review_site";
@@ -88,7 +93,7 @@ public class ReController {
 	//캠핑리뷰 - 리스트(캠핑장)    게시글 수정페이지
 	@PostMapping("siteUpdate")
 	public String siteUpdate(@RequestParam(defaultValue = "1")int cps_bno, Model model) {
-		System.out.println("ReviewService siteUpdate cps_bno : "+cps_bno);
+		System.out.println("ReController siteUpdate cps_bno : "+cps_bno);
 		Map<String, Object> map = reviewService.Cps_selectOne(cps_bno);
 		model.addAttribute("map",map);
 		return "/review/siteUpdate";
@@ -97,7 +102,7 @@ public class ReController {
 	//캠핑리뷰 - 리스트(캠핑장)    게시글 수정
 	@PostMapping("site_doUpdate")
 	public String site_doUpdate(Cps_reviewDto c_redto, @RequestPart MultipartFile re_bfile) throws Exception {
-		System.out.println("ReviewService site_doUpdate bno : "+c_redto.getCps_bno());
+		System.out.println("ReController site_doUpdate bno : "+c_redto.getCps_bno());
 		String re_orgName = "";
 		String re_newName = "";
 		if(!re_bfile.isEmpty()) {
@@ -117,9 +122,38 @@ public class ReController {
 	//캠핑리뷰 - 리스트(캠핑장)    게시글 삭제
 	@PostMapping("siteDelete")
 	public String siteDelete(@RequestParam(defaultValue = "1")int cps_bno) {
-		System.out.println("BoardController siteDelete cps_bno : "+cps_bno);
+		System.out.println("ReController siteDelete cps_bno : "+cps_bno);
 		reviewService.siteDelete(cps_bno);
 		return "/review/siteDelete";
+	}
+	
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 저장후 댓글 1개 가져오기
+	@PostMapping("Cps_commentInsert")
+	@ResponseBody
+	public Cps_commentDto Cps_commentInsert(Cps_commentDto c_recdto) {
+		System.out.println("ReController Cps_commentInsert cps_bno : "+c_recdto.getCps_bno());
+		Cps_commentDto cps_commentDto = reviewService.Cps_commentInsert(c_recdto);
+		return cps_commentDto;
+	}
+	
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 삭제
+	@PostMapping("Cps_commentDelete")
+	@ResponseBody
+	public String Cps_commentDelete(int cps_cno) {
+		System.out.println("ReController Cps_commentDelete cps_cno : "+cps_cno);
+		//서비스 연결
+		String result = reviewService.Cps_commentDelete(cps_cno);
+		System.out.println("result: "+result);
+		return result;
+	}
+	
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 수정저장
+	@PostMapping("Cps_commentUpdate")
+	@ResponseBody
+	public Cps_commentDto Cps_commentUpdate(Cps_commentDto c_recdto) {
+		System.out.println("ReController Cps_commentUpdate cps_cno : "+c_recdto.getCps_cno());
+		Cps_commentDto cps_commentDto = reviewService.Cps_commentUpdate(c_recdto);
+		return cps_commentDto;
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////캠핑장 리뷰

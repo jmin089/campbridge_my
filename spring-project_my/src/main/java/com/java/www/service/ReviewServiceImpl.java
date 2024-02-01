@@ -12,10 +12,13 @@ import com.java.www.dto.Cps_commentDto;
 import com.java.www.dto.Cps_reviewDto;
 import com.java.www.mapper.ReviewMapper;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired ReviewMapper reviewMapper;
+	@Autowired HttpSession session;
 
 	//캠핑리뷰 - 리스트(캠핑장)    전체글가져오기 - 게시글 검색
 	@Override
@@ -113,6 +116,53 @@ public class ReviewServiceImpl implements ReviewService{
 	public void siteDelete(int cps_bno) {
 		int result = reviewMapper.siteDelete(cps_bno);
 		System.out.println("ReviewServiceImpl siteDelete result : "+result);
+	}
+
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 저장후 댓글 1개 가져오기
+	@Override
+	public Cps_commentDto Cps_commentInsert(Cps_commentDto c_recdto) {
+		//c_recdto.setId((String)session.getAttribute("session_id"));
+		//섹션 로그인으로 대체 - session id를 cdto의 id에 저장
+		String id = "aaa";
+		c_recdto.setId(id);
+		
+		//댓글 1개 저장하기 - cno, cdate를 가지고옴.
+		reviewMapper.Cps_commentInsert(c_recdto);
+		System.out.println("ReviewServiceImpl Cps_commentInsert cps_cno : "+c_recdto.getCps_cno());
+		System.out.println("ReviewServiceImpl Cps_commentInsert cps_cdate : "+c_recdto.getCps_cdate());
+		
+		//댓글 1개 가져오기
+		//Cps_commentDto cps_commentDto = reviewMapper.Cps_commentSelectOne(c_recdto.getCps_cno());
+		return c_recdto;
+	}
+	
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 삭제
+	@Override
+	public String Cps_commentDelete(int cps_cno) {
+		System.out.println("서비스임플 삭제 cps_cno : "+cps_cno);
+		String result = "";
+		int re_cps = reviewMapper.Cps_commentDelete(cps_cno);
+		System.out.println("ReviewServiceImpl re_cps :"+re_cps);
+		return result+re_cps;
+	}
+
+	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 수정저장
+	@Override
+	public Cps_commentDto Cps_commentUpdate(Cps_commentDto c_recdto) {
+		//c_recdto.setId((String)session.getAttribute("session_id"));
+		//섹션 로그인으로 대체 - session id를 cdto의 id에 저장
+		String id = "aaa";
+		c_recdto.setId(id);
+		
+		//저장
+		reviewMapper.Cps_commentUpdate(c_recdto);
+		System.out.println("ReviewServiceImpl Cps_commentUpdate cps_cno : "+c_recdto.getCps_cno());
+		System.out.println("ReviewServiceImpl Cps_commentUpdate cps_cdate : "+c_recdto.getCps_cdate());
+		System.out.println("ReviewServiceImpl Cps_commentUpdate cps_ccontent : "+c_recdto.getCps_ccontent());
+		
+		//댓글 1개 가져오기
+		Cps_commentDto cps_commentDto = reviewMapper.Cps_commentSelectOne(c_recdto.getCps_cno());
+		return cps_commentDto;
 	}
 
 }
