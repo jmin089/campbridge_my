@@ -98,6 +98,7 @@
 								</tr>
 							</tbody>
 						</table>
+						<!-- 
 						<div id="comment_list_0">
 							<div class="bfileUpload" style="border-bottom: 1px solid #eee; border-top: 1px solid #eee; height: 45px; display: flex; padding: 10px 0 10px 19px;">
 								<tr id="notice_bfile">
@@ -122,7 +123,7 @@
 									</c:if>
 								</tr>
 							</div>
-						</div>
+						</div>-->
 						<!-- 본문 끝 -->
 						
 						<!-- 이전글/다음글 시작-->
@@ -153,7 +154,7 @@
 					    		 // 작성자 확인 (예: 작성자 ID가 '작성자ID'로 가정)
 					            var authorId = "${map.c_redto.id}";
 
-					            // 현재 사용자 확인 (예: 현재 사용자 ID가 '현재사용자ID'로 가정)
+					            // 현재 사용자 확인 
 					            var currentUserId = "${session_id}";
 
 					            // 작성자와 현재 사용자가 일치할 경우 삭제 및 수정 버튼 표시
