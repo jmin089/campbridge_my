@@ -158,11 +158,11 @@
 
 					            // 작성자와 현재 사용자가 일치할 경우 삭제 및 수정 버튼 표시
 					            if (authorId === currentUserId) {
-					                $(".site_Delete").show();  // Show delete button
-					                $(".site_Update").show();  // Show update button
+					                $(".site_Delete").show();
+					                $(".site_Update").show();
 					            } else {
-					                $(".site_Delete").hide();  // Hide delete button
-					                $(".site_Update").hide();  // Hide update button
+					                $(".site_Delete").hide();
+					                $(".site_Update").hide();
 					            }
 					    		//수정 페이지 이동
 					    		$(".site_Update").click(function(){
