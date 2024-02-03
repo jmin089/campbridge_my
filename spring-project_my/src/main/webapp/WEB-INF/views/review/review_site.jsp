@@ -93,12 +93,11 @@
 									<div class="data-bd-cont">
 										<div id="MS_WritenBySEB">${map.c_redto.cps_bcontent}</div>
 										<!-- <br> <img src="../assets/img/campReview/campReview.jpg" style="width: 400px; height: 400px;"> -->
-										</div>
-									</td>
-								</tr>
+									</div>
+								</td>
+							</tr>
 							</tbody>
 						</table>
-						<!-- 
 						<div id="comment_list_0">
 							<div class="bfileUpload" style="border-bottom: 1px solid #eee; border-top: 1px solid #eee; height: 45px; display: flex; padding: 10px 0 10px 19px;">
 								<tr id="notice_bfile">
@@ -110,7 +109,7 @@
 									
 							<div class="bfileUpload" style="border-bottom: 2px solid #009223; border-top: 1px solid #eee; height: 100%; display: flex; padding: 10px 0 10px 19px;">
 									<tr style="border-bottom: 2px solid #009223;">
-										<td class="notice_noimgfile"><strong  style="width: 100px">이미지</strong></td>
+										<td class="notice_noimgfile"><strong  style="width: 100px">메인이미지</strong></td>
 										<td colspan="3" class="notice_img" ><img src="/upload/${map.c_redto.cps_bfile}"></td>
 									</tr>
 								
@@ -123,7 +122,7 @@
 									</c:if>
 								</tr>
 							</div>
-						</div>-->
+						</div>
 						<!-- 본문 끝 -->
 						
 						<!-- 이전글/다음글 시작-->
