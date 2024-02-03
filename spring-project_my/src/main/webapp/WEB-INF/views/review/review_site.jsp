@@ -42,6 +42,7 @@
 	.notice_noimgfile {padding: 20px 0 20px 48px;}
 	.notice_noimg img{height:30px;}
 	#notice_bfile{border-top : 1px solid silver; border-bottom : 1px solid silver;}
+	.password{width: 75px; height: 28px; position: relative; top: 45px; left: 20px;}
 </style>
 <body>
 	<!-- ======= Header ======= -->
@@ -115,7 +116,7 @@
 									<c:if test="${map.c_redto.cps_bfile==null}">
 										<td colspan="3">※첨부파일 없음※</td>
 										<tr style="border-bottom: 2px solid #009223;">
-											<td class="notice_noimgfile"><strong>이미지</strong></td>
+											<td class="notice_noimgfile"><strong  style="width: 100px">이미지</strong></td>
 											<td colspan="3" class="notice_noimg"><img src="#"></td>
 										</tr>
 									</c:if>
@@ -147,14 +148,22 @@
 						</table>
 						<!-- 이전글/다음글 끝-->
 						
-						<!-- 댓글 입력 시작 -->
-						<tr>
-							<!--  <input type="password" name="replyPw" id="replyIPw" placeholder=" ※ 입력시 비밀글로 저장" style="width: 170px; height: 28px; position: relative; top: 172px;">-->
-								<p class="password" style="width: 75px; height: 28px; position: relative; top: 172px;">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" /></p>
-						</tr>
-						
 						<script>
 					    	$(function(){
+					    		 // 작성자 확인 (예: 작성자 ID가 '작성자ID'로 가정)
+					            var authorId = "${map.c_redto.id}";
+
+					            // 현재 사용자 확인 (예: 현재 사용자 ID가 '현재사용자ID'로 가정)
+					            var currentUserId = "${session_id}";
+
+					            // 작성자와 현재 사용자가 일치할 경우 삭제 및 수정 버튼 표시
+					            if (authorId === currentUserId) {
+					                $(".site_Delete").show();  // Show delete button
+					                $(".site_Update").show();  // Show update button
+					            } else {
+					                $(".site_Delete").hide();  // Hide delete button
+					                $(".site_Update").hide();  // Hide update button
+					            }
 					    		//수정 페이지 이동
 					    		$(".site_Update").click(function(){
 					    			alert("수정페이지로 이동합니다.");
@@ -174,6 +183,11 @@
 							<button type="button" class="list site_Update">수정</button>
 							<a href="siteReview"><button type="button" class="list">목록</button></a>
 						</div>
+											
+						<!-- 댓글 입력 시작 -->
+						<tr>
+							<p class="password"><strong>비밀번호&nbsp;&nbsp;</strong><input type="password" class="replynum" placeholder=" ※ 입력시 비밀글로 저장"/></p>
+						</tr>
 						
 						<script type="text/javascript">
 						$(function(){
@@ -263,10 +277,11 @@
 								let cps_cno = $(this).parent().parent().parent().attr("id");
 								let cps_ccontent = $(this).parent().prev().text();
 								let cps_cdate =  $(this).parent().parent().find("span").text();
-								let id = "aaa"; //session_id 변경
+								let id = "${session_id}";
 								
 								let re_cpsdata = '';
 								
+								re_cpsdata += '<input type="hidden" id="hiddenTxt" value="'+cps_ccontent+'">';
 								re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
 				                re_cpsdata += '<strong>댓글 작성자</strong> | <strong style="color: blue;">'+id+'</strong>&nbsp;&nbsp;<span>'+cps_cdate+'</span>';
 				                re_cpsdata += '<li class="review_replyTxt"><textarea cols="145%">'+cps_ccontent+'</textarea></li>';
@@ -290,12 +305,12 @@
 								let cps_cno = $(this).parent().parent().parent().attr("id");
 								let cps_ccontent = $(this).parent().prev().find("textarea").val();
 								let cps_cdate =  $(this).parent().parent().find("span").text();
-								let id = "aaa"; //session_id 변경
+								let id = "${session_id}";
 								
 								$.ajax({
 									url:"/review/Cps_commentUpdate",
 									type:"post",
-									data:{"cps_cno":cps_cno, "cps_ccontent":cps_ccontent, "cps_cpw":cps_cpw},
+									data:{"cps_cno":cps_cno, "cps_ccontent":cps_ccontent},
 									dataType:"json",
 									success:function(data){
 										alert("댓글이 수정되었습니다.");
@@ -324,9 +339,9 @@
 							$(document).on("click",".cps_cancel",function(){
 								//alert("댓글 수정 취소 시작")
 								let cps_cno = $(this).parent().parent().parent().attr("id");
-								let id = "aaa"; //session_id 변경
+								let id = "${session_id}";
 								let cps_cdate =  $(this).parent().parent().find("span").text();
-								let cps_ccontent = $(this).parent().prev().find("textarea").val();
+								let cps_ccontent = $(this).closest("tr").find("input[type='hidden']").val();
 							
 								let re_cpsdata = '';
 								re_cpsdata += '<td style="border-bottom: 2px solid #eee; padding: 10px;">';
@@ -362,7 +377,7 @@
 					        <c:forEach var="Cps_comment" items="${map.Cps_commentlist}" varStatus="loop">
 						    <tr id="${Cps_comment.cps_cno}">
 				                <td style="border-bottom: 2px solid #eee; padding: 10px;">
-				                    <strong>댓글 작성자</strong> | <strong style="color: blue;">${Cps_comment.id}</strong>&nbsp;&nbsp;<span><fmt:formatDate value="${Cps_comment.cps_cdate}" pattern="YYYY-MM-dd HH:mm:ss"/></span>
+				                    <strong>댓글 작성자</strong> | <strong style="color: blue;">${Cps_comment.id}</strong>&nbsp;&nbsp;<span><fmt:formatDate value="${Cps_comment.cps_cdate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 				                    <li class="review_replyTxt">${Cps_comment.cps_ccontent}</li>
 				                    <li id="replyBtn">
 				                        <button type="button" class="rDelBtn">삭제</button>&nbsp;

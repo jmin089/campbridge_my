@@ -214,6 +214,10 @@ a {
 	line-height: 1.25;
 }
 
+a:-webkit-any-link {
+	cursor: pointer;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -703,7 +707,7 @@ textarea {
 	white-space: pre-wrap;
 }
 a {vertical-align: middle; text-decoration: none;}
-
+a:-webkit-any-link {cursor: pointer;}
 able {
 	border-collapse: collapse;
 	border-spacing: 0;

@@ -121,10 +121,10 @@ public class ReviewServiceImpl implements ReviewService{
 	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 저장후 댓글 1개 가져오기
 	@Override
 	public Cps_commentDto Cps_commentInsert(Cps_commentDto c_recdto) {
-		//c_recdto.setId((String)session.getAttribute("session_id"));
+		c_recdto.setId((String)session.getAttribute("session_id"));
 		//섹션 로그인으로 대체 - session id를 cdto의 id에 저장
-		String id = "aaa";
-		c_recdto.setId(id);
+		//String id = "aaa";
+		//c_recdto.setId(id);
 		
 		//댓글 1개 저장하기 - cno, cdate를 가지고옴.
 		reviewMapper.Cps_commentInsert(c_recdto);
@@ -149,10 +149,10 @@ public class ReviewServiceImpl implements ReviewService{
 	//캠핑리뷰 - 리스트(캠핑장)    댓글 1개 수정저장
 	@Override
 	public Cps_commentDto Cps_commentUpdate(Cps_commentDto c_recdto) {
-		//c_recdto.setId((String)session.getAttribute("session_id"));
+		c_recdto.setId((String)session.getAttribute("session_id"));
 		//섹션 로그인으로 대체 - session id를 cdto의 id에 저장
-		String id = "aaa";
-		c_recdto.setId(id);
+		//String id = "aaa";
+		//c_recdto.setId(id);
 		
 		//저장
 		reviewMapper.Cps_commentUpdate(c_recdto);

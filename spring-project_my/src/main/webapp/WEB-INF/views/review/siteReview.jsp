@@ -88,6 +88,8 @@
 							<div class="reviewbox1"></div> 
 						</div>
 						<!-- 탭 끝  -->
+						
+						
 					
 						<!-- 카드형 리스트 시작 -->
 						<div class="list_wrap" style="height: 1200px;  border-top: 3px solid #009223; border-bottom: 3px solid #009223;">
@@ -102,9 +104,12 @@
 										<p>${redto.id}</p>
 										<p>지역&nbsp&nbsp&nbsp ${redto.cps_sitename}</p>
 										<p class="brief_description">${redto.cps_bcontent}</p>
+										<span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${redto.cps_bdate}" pattern="yyyy-MM-dd"/></span>
 										<div class="heartwrap">
-											<span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i><fmt:formatDate value="${redto.cps_bdate}" pattern="yyyy-MM-dd"/></span> <span class="reviewhit">${redto.cps_blike}</span>
-											<img src="https://www.5gcamp.com/modules/usemarket/theme/_pc/default/image/heart-o.svg" alt="" width="20" class="heart1">
+											 <!-- <span class="reviewhit">${redto.cps_blike}</span>
+											 <img src="https://www.5gcamp.com/modules/usemarket/theme/_pc/default/image/heart-red.svg" alt="" width="20" class="heart1">-->
+											 <span class="reviewhit">${redto.cps_blike}</span>
+											 <img src="https://www.5gcamp.com/modules/usemarket/theme/_pc/default/image/heart-o.svg" alt="" width="20" class="heart1">
 										</div>
 										<a href="review_site?cps_bno=${redto.cps_bno}">바로가기</a>
 									</div>

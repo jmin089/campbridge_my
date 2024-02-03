@@ -577,8 +577,8 @@ a {
 }
 
 .heart1{
-	margin-left: 220px;
-	width: 15px;
+	margin-left: 205px;
+	width: 17px;
 }
 
 
@@ -587,7 +587,7 @@ a {
     display: inline-block;
     height: 26px;
     line-height: 26px;
-    font-size: 13px;
+    font-size: 15px;
     color: #808080;
     position: relative;
     top: 20px;
@@ -595,10 +595,10 @@ a {
 
 .reviewhit{
 	color: #666;
-    font-size: 13px;
+    font-size: 15px;
     position: relative;
     left: -10px;
-    top: 25px;
+    top: 22px;
     float: right;
 }
 
